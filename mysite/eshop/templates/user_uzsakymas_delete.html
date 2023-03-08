@@ -1,0 +1,39 @@
+{% load static %}
+{% block content %}
+{% load crispy_forms_tags %}
+<head>
+ <title>Prekiu sarasas</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <style>
+    .w3-sidebar a {font-family: "Roboto", sans-serif}
+    body,h1,h2,h3,h4,h5,h6,.w3-wide {font-family: "Montserrat", sans-serif;}
+    </style>
+  </head>
+
+<body>
+
+<div class="w3-container w3-yellow">
+<h1>LEGO PASAULIS</h1>
+</div>
+    <div class="container">
+    <div class="row">
+    <div class="content-section">
+    <form method="POST">
+        {% csrf_token %}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Istrinti uzsakyma</legend>
+            <h2>AR tikrai norite atsaukti uzsakyma? {{ object.uuid }}?</h2>
+        </fieldset>
+        <div class="form-group">
+            <button class="w3-button w3-black w3-padding-large w3-small" type="submit">Taip</button>
+            <a class="w3-button w3-black w3-padding-large w3-small" href="{% url 'uzsakymas' object.id %}">Atsaukti</a>
+        </div>
+    </form>
+    </div>
+{% endblock content %}

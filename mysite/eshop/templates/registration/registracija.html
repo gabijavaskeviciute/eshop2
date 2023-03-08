@@ -1,0 +1,54 @@
+
+{% block content %}
+<head>
+ <title>Registracija</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+    .w3-sidebar a {font-family: "Roboto", sans-serif}
+    body,h1,h2,h3,h4,h5,h6,.w3-wide {font-family: "Montserrat", sans-serif;}
+    </style>
+  </head>
+  <div class="w3-display-container w3-container">
+    <img src="https://wallpapercave.com/wp/wp9570259.jpg" alt="lego" style="width:100%">
+  </div>
+<body class="w3-content" style="max-width:1200px">
+<nav class="w3-sidebar w3-bar-block w3-white w3-collapse w3-top" style="z-index:3;width:250px" id="mySidebar">
+  <div class="w3-container w3-yellow w3-padding-32">
+    <i onclick="w3_close()" class="fa fa-remove w3-hide-large w3-button w3-display-topright"></i>
+    <h3 class="w3-wide"><b>LEGO PASAULIS</b></h3>
+  </div>
+    <div class="container register">
+        <h3>Registracija</h3><br/>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="username">Vartotojo vardas</label>
+                <input name="username" type="text" class="form-control" id="username" aria-describedby="usernameHelp">
+                <small id="usernameHelp" class="form-text text-muted">Iki 150 simbolių.</small>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">El. paštas</label>
+                <input name="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                <small id="emailHelp" class="form-text text-muted"></small>
+            </div>
+            <div class="form-group">
+                <label for="password">Slaptažodis</label>
+                <input name="password" type="password" class="form-control" id="password" aria-describedby="pwdHelp">
+                <small id="pwdHelp" class="form-text text-muted">Ne mažiau, kaip 8 simboliai. Negali būti vien tik
+                    skaičiai</small>
+            </div>
+            <div class="form-group">
+                <label for="password2">Pakartoti slaptažodį</label>
+                <input name="password2" type="password" class="form-control" id="password2" aria-describedby="pwd2Help">
+            </div>
+            <button type="submit" class="btn btn-primary register-button">Registruotis</button>
+        </form>
+        <p>Jeigu užsiregistravote anksčiau, <a href="/login"><strong>prisijunkite.</strong></a></p>
+    </div>
+
+{% endblock %}

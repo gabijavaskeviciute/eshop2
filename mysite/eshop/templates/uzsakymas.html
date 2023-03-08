@@ -1,0 +1,90 @@
+
+{% load i18n %}
+{% block content %}
+<head>
+ <title>Prisijungimas</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+    .w3-sidebar a {font-family: "Roboto", sans-serif}
+    body,h1,h2,h3,h4,h5,h6,.w3-wide {font-family: "Montserrat", sans-serif;}
+    </style>
+  </head>
+  <div class="w3-container w3-yellow w3-padding-32">
+    <i onclick="w3_close()" class="fa fa-remove w3-hide-large w3-button w3-display-topright"></i>
+    <h3 class="w3-wide"><b>LEGO PASAULIS</b></h3>
+  </div>
+ <a href="{% url 'profilis' %}" class="w3-bar-item w3-button">Mano profilis</a></li>
+            <a href="{% url 'manouzsakymai' %}" class="w3-bar-item w3-button">Mano uzsakymai</a>
+            <a href="{% url 'manonaujiuzsakymai' %}" class="w3-bar-item w3-button">Naujas uzsakymas</a></li>
+            <a href="{% url 'logout' %}" class="w3-bar-item w3-button">Atsijungti</a></li>
+<h3>Uzsakymo detales</h3>
+<ul>
+    <img class="rounded-circle" src="{{uzsakymas.vartotojas.profilis.nuotrauka.url}}">
+    <li><b>Data:</b> {{ uzsakymas.data }}</li>
+    <li><b>Preke:</b> {{ uzsakymas.preke_id }}</li>
+    <li><b>Vartotojas</b> {{ uzsakymas.vartotojas }}</li>
+    <li><b>Statusas</b> {{ uzsakymas.get_status_display }}</li>
+            {% if object.vartotojas == user %}
+            <div>
+                <a class="w3-button w3-black w3-padding-large w3-small" href="{% url 'mano-uzsakymas-update' object.id %}">Pakeisti preke</a>
+                <a class="w3-button w3-black w3-padding-large w3-small" href="{% url 'mano-uzsakymas-delete' object.id %}">Atsaukti uzsakyma</a>
+                <a class="w3-button w3-black w3-padding-large w3-small" href="#">Moketi</a>
+            </div>
+            {% endif %}
+</ul>
+<hr>
+<h4>Bendra uzsakytu prekiu apzvalga</h4>
+<table class="table table-bordered">
+    <thead>
+<tr>
+        <th scope="col">Prekes</th>
+        <th scope="col">Kaina</th>
+        <th scope="col">KIekis</th>
+        <th scope="col">amount</th>
+</tr>
+</thead>
+    <tbody>
+    {% for eilute in uzsakymas.eilutes.all %}
+    <tr>
+        <th scope="row">{{ eilute.preke.pavadinimas }}</th>
+        <td scope="row">{{ eilute.preke.kaina }}</td>
+        <td scope="row">{{ eilute.kiekis }}</td>
+        <td scope="row">{{ eilute.kaina }}</td>
+    </tr>
+    {% endfor %}
+     <tr>
+        <td colspan="3"><b>Bendra suma</b></td>
+      <th>{{ uzsakymas.suma }}</th>
+    </tr>
+    </tbody>
+</table>
+</br>
+  <h4>{% trans "Reviews:" %}</h4>
+  {% if uzsakymas.uzsakymasreview_set.all %}
+    {% for review in uzsakymas.uzsakymasreview_set.all %}
+      <hr>
+      <strong>{{ review.vartotojas }}</strong>, <em>{{ review.date_created}}</em>
+      <p>{{ review.content }}</p>
+    {% endfor %}
+  {% else %}
+    <p>sis uzsakymas neturi atsiliepimu</p>
+  {% endif %}
+  {% if user.is_authenticated %}
+  <div class="fieldWrapper">
+    <hr><br/>
+    <h4>{% trans "Leave review:" %}</h4>
+    <form action="" method="post">
+      {% csrf_token %}
+      {{ form.content }}</br>
+      <input type="submit" value="Išsaugoti">
+    </form>
+  </div>
+  {% endif %}
+{% endblock %}
+
+

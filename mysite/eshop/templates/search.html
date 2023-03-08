@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block content %}
+  <h1>Paieškos pagal "{{query}}" rezultatai:</h1>
+  </br>
+  {% if prekes %}
+  <ul>
+    {% for preke in prekes %}
+      <li>
+        <a href="{{ preke.id }}">{{ preke.pavadinimas }}</a>
+      </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+    <p>Deja nieko neradome :(</p>
+  {% endif %}
+
+  {% endblock %}
